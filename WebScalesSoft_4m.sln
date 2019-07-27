@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{803FD0C6-D64E-4E16-9DC3-1DAEC859A3D2}") = "WebScalesSoft_4m", "WebScalesSoft_4m.vgdbproj", "{C0484766-2F31-4805-AAE8-9C74BA6EA386}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Generic_ESP8266_Module = Debug|Generic_ESP8266_Module
+		Release|Generic_ESP8266_Module = Release|Generic_ESP8266_Module
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0484766-2F31-4805-AAE8-9C74BA6EA386}.Debug|Generic_ESP8266_Module.ActiveCfg = Debug|Generic_ESP8266_Module
+		{C0484766-2F31-4805-AAE8-9C74BA6EA386}.Debug|Generic_ESP8266_Module.Build.0 = Debug|Generic_ESP8266_Module
+		{C0484766-2F31-4805-AAE8-9C74BA6EA386}.Release|Generic_ESP8266_Module.ActiveCfg = Release|Generic_ESP8266_Module
+		{C0484766-2F31-4805-AAE8-9C74BA6EA386}.Release|Generic_ESP8266_Module.Build.0 = Release|Generic_ESP8266_Module
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C11FA0C3-A6FA-42EA-B767-B7EAEC51FD19}
+	EndGlobalSection
+EndGlobal
