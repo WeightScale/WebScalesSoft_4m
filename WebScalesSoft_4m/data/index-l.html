@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no' />
+    <meta http-equiv='X-UA-Compatible' content='IE=11' />
+    <meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate' />
+    <meta http-equiv='Pragma' content='no-cache' />
+    <link rel='stylesheet' type='text/css' href='global.css'>
+    <style>
+        #ws_id {
+            background: #fff;
+            font-size: 22vw;
+            color: #618ad2;
+            box-shadow: 1px 4px 8px 1px #585858;
+        }
+
+        .td,
+        .th {
+            padding: 3px;
+            border: 1px solid #979ab5;
+        }
+
+        .th {
+            background: #a0a0a0;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        input {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #id_msg {
+            color: white;
+            font-size: 20px;
+        }
+
+        .id_alr {
+            display: none;
+            position: absolute;
+            top: 10%;
+            margin-left: 15px;
+            width: 280px;
+            padding: 10px;
+            border-radius: 10px;
+            background: #ff7c00;
+        }
+        @media (min-width: 640px){
+           #ws_id{
+                font-size: 138px;
+            }
+            #c_id{
+                font-size: 38px;
+            }
+        }
+    </style>
+    <script>
+        var w, d = document;
+        window.alert = function(m, c, t) {
+            a = d.getElementById('id_alr');
+            b = d.getElementById('id_alr_btn');
+            d.getElementById("id_msg").innerText = m;
+            a.style.display = 'inline';
+            a.style.visibility = 'visible';
+            if (t) {
+                setTimeout(function() {
+                    a.style.display = 'none';
+                }, t);
+            }
+            b.onclick = c;
+            b.focus();
+        };
+
+        function SS(h, p, fm, fe) {
+            let tw, ws;
+            this.snd = function(c) {
+                ws.send(c);
+            };
+            this.create = function() {
+                this.oS();
+            };
+            this.close = function() {
+                ws.close();
+            };
+            this.wT = function() {
+                clearTimeout(tw);
+                tw = setTimeout(function() {
+                    w.create();
+                }, 7000);
+            };
+            this.oS = function() {
+                ws = new WebSocket(h, p);
+                ws.onopen = function() {
+                    d.body.style.visibility = 'visible';
+                };
+                ws.onclose = function() {
+                    fe();
+                };
+                ws.onerror = function() {
+                    fe();
+                };
+                ws.onmessage = function(e) {
+                    fm(JSON.parse(e.data));
+                }
+            };
+        }
+
+        function go() {
+            d.getElementById('w_id').innerHTML = '---';
+            d.getElementById('c_id').innerHTML = '--%';
+        }
+
+        window.onload = function() {
+            w = new SS('ws://' + d.location.host + '/ws', ['scales'], pC, function() {
+                go();
+                w.wT();
+            });
+            w.oS();
+        };
+
+        function pC(e) {
+            if (e.hasOwnProperty('cmd')) {
+                switch (e.cmd) {
+                    case 'wt':
+                        try {
+                            let st = d.getElementById('ws_id');
+                            d.getElementById('w_id').innerHTML = e.w.toFixed(e.a);
+                            d.getElementById('c_id').innerHTML = e.c + '%';
+                            if (e.s) {
+                                st.setAttribute('style', 'background: #abc0df;');
+                            } else {
+                                st.setAttribute('style', 'background: #fff;');
+                            }
+                        } catch (e) {
+                            go();
+                        } finally {
+                            w.wT();
+                        }
+                        break;
+                    case 'tp':
+                        d.getElementById('b_id').disabled = false;
+                        break;
+                    case 'dchg':
+                        alert("Батарея разряжена!!! Поменяйте батарею.", function() {
+                            d.getElementById('id_alr').style.display = 'none';
+                        }, 10000);
+                        break;
+                    case 'cls':
+                        if (e.code === 1111) {
+                            alert("Лимит клиентов", function() {
+                                d.getElementById('id_alr').style.display = 'none';
+                            }, 5000);
+                            d.body.style.visibility = 'hidden';
+                        }
+                        w.close();
+                        break;
+                    case 'ovl':
+                        alert("Превышен предел взвешивания " + e.rec + " !!!", function() {
+                            d.getElementById('id_alr').style.display = 'none';
+                        }, 0);
+                        break;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div align='right' class="id_alr" id='id_alr'>
+    <p id='id_msg'></p>
+    <input class="btn--s" type='button' id='id_alr_btn' value='Ok'>
+</div>
+<hr>
+<div align='right' id='ws_id'><b style="margin-right: 5px" id='w_id'>---</b></div>
+<hr>
+<table>
+    <tr>
+        <td style='width:1%; white-space: nowrap'><img src='bat.png' alt='B' /></td>
+        <td><h3 id='c_id' style='display: inline'>--%</h3></td>
+    </tr>
+</table>
+<hr>
+</body>
+
+</html>

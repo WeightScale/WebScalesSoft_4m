@@ -18,7 +18,20 @@
           <string>WebScalesSoft_4m.ino</string>
         </Files>
       </RootSketchFolder>
-      <OtherFiles />
+      <OtherFiles>
+        <string>sketches\Board.h</string>
+        <string>sketches\BrowserServer.h</string>
+        <string>sketches\Config.h</string>
+        <string>sketches\HttpUpdater.h</string>
+        <string>sketches\Page.h</string>
+        <string>sketches\Scales.h</string>
+        <string>sketches\SettingsPage.h</string>
+        <string>sketches\Task.h</string>
+        <string>sketches\TaskController.h</string>
+        <string>sketches\Version.h</string>
+        <string>sketches\web_terminal_mini.h</string>
+        <string>sketches\WiFiModule.h</string>
+      </OtherFiles>
     </ProjectModeSettings>
   </Project>
   <Build xsi:type="com.visualgdb.build.external.arduino">

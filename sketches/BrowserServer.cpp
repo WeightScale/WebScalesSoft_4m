@@ -7,14 +7,17 @@
 
 BrowserServerClass * server;
 AsyncWebSocket webSocket("/ws");
-//AsyncEventSource events("/events");
+AsyncDNSServer dnsServer;
 
 BrowserServerClass::BrowserServerClass(uint16_t port, char * username, char * password)	: AsyncWebServer(port) {
 	_httpAuth.wwwUsername = username;
 	_httpAuth.wwwPassword = password;
 }
 
-void BrowserServerClass::begin() {	
+void BrowserServerClass::begin() {
+	dnsServer.setTTL(300);
+	dnsServer.setErrorReplyCode(AsyncDNSReplyCode::ServerFailure);
+	dnsServer.start(53, "*", apIP);
 	webSocket.onEvent(onWsEvent);
 	addHandler(&webSocket);
 #ifdef MULTI_POINTS_CONNECT
@@ -30,6 +33,7 @@ void BrowserServerClass::begin() {
 			request->send(response);
 		});
 #endif // MULTI_POINTS_CONNECT
+	addHandler(new CaptiveRequestHandler()).setFilter(ON_AP_FILTER);
 	addHandler(new SPIFFSEditor(_httpAuth.wwwUsername.c_str(), _httpAuth.wwwPassword.c_str()));	
 	addHandler(new HttpUpdaterClass("sa", "654321"));
 	on("/wt",HTTP_GET,	[](AsyncWebServerRequest * request) {

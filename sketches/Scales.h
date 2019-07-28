@@ -10,16 +10,12 @@ struct ScalesValue {
 };
 
 class ScalesClass {
-private:
-	ScalesValue _master;
-	ScalesValue _slave;	
+private:	
 	String _dataValue;
 public:
 	ScalesClass() {};
-	~ScalesClass() {};
+	~ScalesClass() {};	
 	
-	void master(ScalesValue value){	_master = value; }
-	void slave(ScalesValue value) {	_slave = value;	};
 	size_t doData(JsonObject& json);
 	size_t doDataRandom(JsonObject& json);
 	String& dataValue() {return _dataValue;}; 

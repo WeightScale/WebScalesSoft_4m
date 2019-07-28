@@ -3,10 +3,7 @@
 
 ScalesClass scales;
 
-size_t ScalesClass::doData(JsonObject& json) {
-	float m = json["ms"]["w"] ;
-	float s = json["sl"]["w"];	
-	json["w"] = json.containsKey("sl") ? String(m+s) : String("slave???");
+size_t ScalesClass::doData(JsonObject& json) {	
 	_dataValue = String();
 	json.printTo(_dataValue);
 	return json.measureLength();

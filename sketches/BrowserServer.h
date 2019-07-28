@@ -20,6 +20,26 @@ public:
 	bool checkAdminAuth(AsyncWebServerRequest * request);
 };
 
+class CaptiveRequestHandler : public AsyncWebHandler {
+public:
+	CaptiveRequestHandler() {}
+	virtual ~CaptiveRequestHandler() {}
+	
+	bool canHandle(AsyncWebServerRequest *request) {
+		if (!request->host().equalsIgnoreCase(WiFi.softAPIP().toString())) {
+			return true;
+		}
+		return false;
+	}
+
+	void handleRequest(AsyncWebServerRequest *request) {
+		AsyncWebServerResponse *response = request->beginResponse(302, "text/plain", "");
+		response->addHeader("Location", String("http://") + WiFi.softAPIP().toString());
+		request->send(response);
+	}
+};
+
+extern AsyncDNSServer dnsServer;
 extern BrowserServerClass * server;
 extern AsyncWebSocket webSocket;
 void onWsEvent(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventType type, void * arg, uint8_t *data, size_t len);

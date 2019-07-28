@@ -53,7 +53,7 @@ struct MyEEPROMStruct {
 };
 
 /*
- {"cmd":"wt","ms":{"w":0.222,"a":3,"s":true,"c":99},"sl":{"w":0.212,"a":3,"s":true,"c":56}}
+ {"cmd":"wt","w":0.212,"a":3,"s":true,"c":56}
  {"cmd":"snet","ssid":"KONST","key":"3fal-rshc-nuo3","dnip":"true","lan_ip":"192.168.1.100","gateway":"192.168.1.1","subnet":"255.255.255.0"}
  {"cmd":"swt","d":"","v":0.222,"a":3}
  {"cmd":"swt","d":"","v":0.22,"a":3}
